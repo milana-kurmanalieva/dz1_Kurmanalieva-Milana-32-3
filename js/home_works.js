@@ -27,25 +27,27 @@ window.onkeydown = (event)=>{
 //TODO Вы можете попробовать и с requestAnimationFrame,
 // а также ниже можно будет раскоментить и посмотреть с setTimeout
 
-let count = 0
+let positionX = 0
+let positionY = 0
+let widthBlock = 448
 const child = document.querySelector('.child_block')
-//
-function animation ()  {
-    child.style.left = `${count}px`
-    count+=4
-    if (count <=448){
-        requestAnimationFrame(animation)
+
+const animateIn = ()=> {
+    child.style.left = `${positionX}px`
+    child.style.top = `${positionY}px`
+    if (positionX < widthBlock && positionY === 0){
+        positionX++
+        setTimeout(animateIn , 4)
+    }else if (positionX === widthBlock && positionY < widthBlock){
+        positionY++
+        setTimeout(animateIn, 4)
+    }else if ( positionY === widthBlock && positionX !== 0){
+        positionX--
+        setTimeout(animateIn, 4)
+    }else if (positionX === 0 && positionY !== 0){
+        positionY--
+        setTimeout(animateIn, 4)
     }
 }
-animation()
-
-// TODO setTimeout
-// const animateIn = ()=> {
-//     child.style.left = `${count}px`
-//     count++
-//     if (count <= 448){
-//         setTimeout(animateIn , 4)
-//     }
-// }
-// animateIn()
+animateIn()
 
